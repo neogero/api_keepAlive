@@ -1,0 +1,13 @@
+{
+    "ddbb":{
+        "name": "keepalive",
+        "user": "keepalive",
+        "host": "localhost",
+        "password": "12345678",
+        "port": "3306"
+    },
+    "server":{
+        "port": "8080"
+    }
+
+}
