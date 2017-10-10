@@ -6,25 +6,15 @@
  // Libreries
 var express = require('express');
 var bodyParser = require('body-parser');
-var Sequelize = require('sequelize');
+var mongoose = require('mongoose');
+
 
  //configuration File
  configuration = require('./configuration/default.json');
 
 
-//SEQUELIZE
-const sequelize = new Sequelize('mysql://' + configuration.ddbb.user + ':' + configuration.ddbb.password + '@' + configuration.ddbb.host + ':'+ configuration.ddbb.port + '/' + configuration.ddbb.name);
-
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
-
-
+ //Connect to database
+ dbMongoConnection();
 
  //Initialize Server App
 var app = express();
@@ -50,11 +40,7 @@ app.use(bodyParser.json());
 
 
 // APP ROUTES - BEGIN
-app.get('/', function(req, res){
-    res.send('Hello World');
-    //res.json({response: 'process'});
-});
-
+app.get('/', require('./controller/message.js').get);
 app.post('/', require('./controller/message.js').new);
 // APP ROUTES - END
 
@@ -64,3 +50,15 @@ app.listen(configuration.server.port);
 console.log('MSG: App Listening in port: '+ configuration.server.port);
 
 
+// Connect to MongoDB Database
+function dbMongoConnection(){
+	var dbConnectionString = 'mongodb://' + configuration.ddbb.host + ':' + configuration.ddbb.port + '/' + configuration.ddbb.database; 
+	mongoose.connect(dbConnectionString, function(err){
+  		if(err){
+    		console.log("ERROR: I can't connect to MongoDB, please check Mongo Server Status");
+    		process.exit(1);
+  		}else{
+    		console.log("MSG: MongoDB it's OK");
+  		}
+	});
+}
