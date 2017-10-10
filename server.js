@@ -46,8 +46,15 @@ app.post('/', require('./controller/message.js').new);
 
 
 //Starting Server App
-app.listen(configuration.server.port);
-console.log('MSG: App Listening in port: '+ configuration.server.port);
+if(configuration.server.onlyLocalhost){
+  app.listen(configuration.server.port, 'localhost', function(){
+    console.log('MSG: App Listening in port: '+ configuration.server.port + ' ONLY on localhost');
+  });
+}else{
+  app.listen(configuration.server.port, function(){
+    console.log('MSG: App Listening in port: '+ configuration.server.port);
+  });
+}
 
 
 // Connect to MongoDB Database
