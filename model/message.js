@@ -13,6 +13,7 @@ var MessageSchema   = new mongoose.Schema({
     manufacturer: String,
     serial: String,
     message: String,
+    at: Date,
     date:{ type: Date, default: Date.now }
 });
 

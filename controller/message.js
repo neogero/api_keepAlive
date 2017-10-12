@@ -17,6 +17,7 @@ module.exports.new = function(req, res){
         message.manufacturer = req.body.manufacturer;
         message.serial = req.body.serial;
         message.message = req.body.message;
+        message.at = req.body.at;
         
         // save message into database
  	    message.save(function(err){
