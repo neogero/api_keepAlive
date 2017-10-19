@@ -5,6 +5,7 @@
 
  // Libreries
 var express = require('express');
+var cors = require('cors');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
@@ -21,7 +22,7 @@ var app = express();
 
 
 // CORST PROBLEM
-var allowCrossDomain = function(req, res, next) {
+/*var allowCrossDomain = function(req, res, next) {
     if ('OPTIONS' == req.method) {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
@@ -31,11 +32,12 @@ var allowCrossDomain = function(req, res, next) {
     else {
       next();
     }
-};
+};*/
 
 
 //Configuring Server App.
-app.use(allowCrossDomain);
+//app.use(allowCrossDomain);
+app.use(cors());
 app.use(bodyParser.json());
 
 
