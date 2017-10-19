@@ -4,7 +4,6 @@ module.exports.new = function(req, res){
 	var message = new Message();
 	
     if(req.body){
-        //example.exString = req.body.exString;
    
         //PARSING DATA FROM POST REQUEST
         var clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -29,7 +28,6 @@ module.exports.new = function(req, res){
         });
 
         console.log('Peticion Recibida de ' + clientIp);
-        //res.json({response: clientIp});
    
     }else{
         res.json({response: 'incorrect json file'});
@@ -45,11 +43,6 @@ module.exports.get = function(req, res){
         var messageMap = {};
 
         if(!err){
-        /*docs.forEach(function(message) {
-            messageMap[message._id] = message;
-        }, this);*/
-        
-            //res.send(messageMap);
             res.send(docs);
         }else{
             res.json(err);
